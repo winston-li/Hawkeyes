@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+
+  video(autoplay=true,hidden=true,id="sourcevid")
+  canvas(id="output",ondblclick="click_canvas()")
+  div(id="log")
+  script(src="/javascripts/webcam.js")
+
