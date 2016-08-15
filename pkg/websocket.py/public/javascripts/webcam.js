@@ -70,7 +70,7 @@ function drawVideoRect() {
 var ws;
 
 if('WebSocket' in window){
-    connect('ws://localhost:8888/video');
+    connect('ws://' + location.hostname + (location.port ? ':'+location.port : '') + '/video');
 } else {
     log ('web sockets not supported');
 }

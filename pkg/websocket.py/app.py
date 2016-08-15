@@ -29,9 +29,8 @@ class WebcamHandler(websocket.WebSocketHandler):
         self.timer.cancel()
 
     def on_timer(self):
-        if self.frames == 0:
-            return
-        print "received: {0} fps, avg. {1} bytes per frame".format(self.frames, self.sum/self.frames)
+        if self.frames != 0:
+            print "received: {0} fps, avg. {1} bytes per frame".format(self.frames, self.sum/self.frames)
         self.frames = 0
         self.sum = 0
 
