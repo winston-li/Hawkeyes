@@ -98,7 +98,7 @@ Itseez, Inc., a leading developer of computer vision technology, has introduced 
 | Component | License | Languages   | Deep Learning | Neural Network | Linear regression | Logstics regression | Multiclass classification | SVM | Anomaly detection  | Clustering | Density estimation | Dimension reduction |
 | ---        | ---    | ---         | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | OpenCV     | BSD    | Python, C++ |   | O | O | O | O | O |   | O |   |   | 
-| TensorFlow | Apache | Python, C   | O | O |
+| TensorFlow | Apache | Python, C   | O | O | O | O | O | 
 | Octave     | GPL    | Matlab, C++ | 
 | Scikit     | BSD    | Python      |   |   | O | O | O | O | O | O | O | O | 
 
