@@ -37,7 +37,7 @@ var cw = 320; //video.clientWidth;
 var ch = 240; //video.clientHeight;
 var drawTimer;
 // Render an alpha rectengle on top of video 
-var rect = {x:50, y:50, w:100, h:100, show:0};
+var rect;
 
 log('height = ' + ch);
 canvas.width = cw;
@@ -58,7 +58,7 @@ function extractVideoFrame() {
 };
 
 function drawVideoRect() {
-    if (!rect.show) {
+    if (!rect) {
         return;
     }
     ctx_out.fillStyle = "rgba(150, 50, 50, 0.5)";

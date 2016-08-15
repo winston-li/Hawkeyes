@@ -27,7 +27,7 @@ wss.on('connection', function (ws) {
   console.log('websocket connected');
 
   // init a object rectangle
-  var rect = {x:0, y:0, w:0, h:0, show:1};
+  var rect = {x:0, y:0, w:0, h:0};
 
   function randomInt (low, high) {
     return Math.floor(Math.random() * (high - low) + low);
