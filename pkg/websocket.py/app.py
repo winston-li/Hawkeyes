@@ -35,10 +35,10 @@ class WebcamHandler(websocket.WebSocketHandler):
         self.frames += 1
         self.sum += len(message)
         # process data
-        rects = self.eye.process(message)
-        if (rects is None):
+        rect = self.eye.process(message)
+        if (rect is None):
             return
-        self.rect['x'], self.rect['y'], self.rect['w'], self.rect['h'] = rects[0].astype(int)
+        self.rect['x'], self.rect['y'], self.rect['w'], self.rect['h'] = rect
         self.write_message(json.dumps(self.rect))
 
     def on_close(self):
