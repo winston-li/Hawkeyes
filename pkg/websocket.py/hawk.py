@@ -42,7 +42,7 @@ class Eye:
             # detect face from frame
             rect = self.detector.detect(gray)
             if rect is not None:
-                #print('detected: {0}'.format(rect))
+                #print('detected: {0}, {1}'.format(rect, type(rect)))
                 self.tracker = MosseTracker(gray, rect)
         else:
             # keep tracking object on incoming frames
@@ -52,7 +52,7 @@ class Eye:
                 self.tracker = None
         
         if type(rect) is np.ndarray:
-            rect = rect.astype(int)
+            rect = rect.astype(type(int))
         return rect
 
 '''
