@@ -13,6 +13,7 @@ import hawk
 import sys, signal
 
 class WebcamHandler(websocket.WebSocketHandler):
+    timer = None
     def __init__(self, application, request, **kwargs):
         super(WebcamHandler, self).__init__(application, request, **kwargs)
         # fps counter
@@ -27,8 +28,8 @@ class WebcamHandler(websocket.WebSocketHandler):
 
     def open(self):
         print("WebSocket opened")
-        self.timer = Timer(1, self.on_timer)
-        self.timer.start()
+        WebcamHandler.timer = Timer(1, self.on_timer)
+        WebcamHandler.timer.start()
 
     def on_message(self, message):
         # fps counter
@@ -43,7 +44,7 @@ class WebcamHandler(websocket.WebSocketHandler):
 
     def on_close(self):
         print("WebSocket closed")
-        self.timer.cancel()
+        WebcamHandler.timer.cancel()
 
     def on_timer(self):
         if self.frames != 0:
@@ -52,19 +53,20 @@ class WebcamHandler(websocket.WebSocketHandler):
         self.frames = 0
         self.sum = 0
         # repeat timer
-        self.timer = Timer(1, self.on_timer)
-        self.timer.start()
+        WebcamHandler.timer = Timer(1, self.on_timer)
+        WebcamHandler.timer.start()
 
 def signal_handler(signal, _):
-    print("\nEnd web application")
+    WebcamHandler.timer.cancel()
     ioloop.IOLoop.current().stop()
+    ioloop.IOLoop.current().close()
     sys.exit(0)
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
     app = web.Application([
         (r"/video", WebcamHandler),
-        (r"/(.*)", web.StaticFileHandler, {"path": "public"}),
+        (r"/(.*)", web.StaticFileHandler, {"path": "public", "default_filename": "index.html"}),
     ])
     app.listen(8888)
     ioloop.IOLoop.current().start()
