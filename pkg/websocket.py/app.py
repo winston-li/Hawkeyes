@@ -12,15 +12,17 @@ import json
 import hawk
 import sys, signal
 
+
 class WebcamHandler(websocket.WebSocketHandler):
     timer = None
+
     def __init__(self, application, request, **kwargs):
         super(WebcamHandler, self).__init__(application, request, **kwargs)
         # fps counter
         self.frames = 0
         self.sum = 0
         # init a object rectangle
-        self.rect = {'x':0, 'y':0, 'w':0, 'h':0}
+        self.rect = {'x': 0, 'y': 0, 'w': 0, 'h': 0}
         # repeat timer
         self.timer = None
         # init hawk pipeline
@@ -56,17 +58,20 @@ class WebcamHandler(websocket.WebSocketHandler):
         WebcamHandler.timer = Timer(1, self.on_timer)
         WebcamHandler.timer.start()
 
+
 def signal_handler(signal, _):
     WebcamHandler.timer.cancel()
     ioloop.IOLoop.current().stop()
     ioloop.IOLoop.current().close()
     sys.exit(0)
 
+
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
     app = web.Application([
         (r"/video", WebcamHandler),
-        (r"/(.*)", web.StaticFileHandler, {"path": "public", "default_filename": "index.html"}),
+        (r"/(.*)", web.StaticFileHandler, {"path": "public",
+                                           "default_filename": "index.html"}),
     ])
     app.listen(8888)
     ioloop.IOLoop.current().start()
