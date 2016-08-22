@@ -60,7 +60,8 @@ class WebcamHandler(websocket.WebSocketHandler):
 
 
 def signal_handler(signal, _):
-    WebcamHandler.timer.cancel()
+    if WebcamHandler.timer is not None:
+        WebcamHandler.timer.cancel()
     ioloop.IOLoop.current().stop()
     ioloop.IOLoop.current().close()
     sys.exit(0)
